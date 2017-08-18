@@ -5,11 +5,11 @@ import Book from './Book'
 class BooksGrid extends Component {
 
 	render() {
-		const { books } = this.props
+		const { books, updateBookShelve } = this.props
 		return (
 			<ol className="books-grid">
              	{books.map((book, index) => (
-             		<Book book={ book } key={ index }/>
+             		<Book book={ book } key={ index } updateBookShelve={ updateBookShelve }/>
              	))}
             </ol>
 		)

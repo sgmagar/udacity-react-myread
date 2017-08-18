@@ -14,12 +14,12 @@ class SearchPage extends Component {
 	}
 
 	render () {
-		const { books } = this.props
+		const { books, updateBookShelve, backToHome } = this.props
 		const { query } = this.state
 		return (
 			<div className="search-books">
 	            <div className="search-books-bar">
-	              <a className="close-search" onClick={() => this.setState({ showSearchPage: false })}>Close</a>
+	              <a className="close-search" onClick={() => backToHome(false)}>Close</a>
 	              <div className="search-books-input-wrapper">
 	                {/* 
 	                  NOTES: The search from BooksAPI is limited to a particular set of search terms.
@@ -39,7 +39,7 @@ class SearchPage extends Component {
 	              </div>
 	            </div>
 	            <div className="search-books-results">
-	            	<BooksGrid books={ books } />
+	            	<BooksGrid books={ books } updateBookShelve={ updateBookShelve } />
 	            </div>
           </div>
 		)

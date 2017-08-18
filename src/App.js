@@ -6,7 +6,7 @@ import MyReadsPage from './components/MyReadsPage'
 import SearchPage from './components/SearchPage'
 
 class BooksApp extends React.Component {
-  state = {
+    state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
      * we're on, use the URL in the browser's address bar. This will ensure that
@@ -16,38 +16,71 @@ class BooksApp extends React.Component {
     showSearchPage: false,
     books: [],
     bookShelve: []
-    
-  }
 
-  componentDidMount() {
-    BooksAPI.getAll().then((bookShelve) => {
-      this.setState({ bookShelve })
-      console.log(bookShelve)
-    })
-  }
+    }
 
-  searchBook = (query) => {
-    BooksAPI.search(query, 20).then((books) => {
-      this.setState({ books })
-    })
-  }
+    componentDidMount() {
+        this.getBookShelve()
+    }
 
-  render() {
-    return (
-      <div className="app">
-        {this.state.showSearchPage ? (
-          <SearchPage 
-            books = { this.state.books }
-            searchBook={(query) => {
-              this.searchBook(query)
-            }} 
-          />
-        ) : (
-          <MyReadsPage />
-        )}
-      </div>
-    )
-  }
+    getBookShelve = () => {
+        BooksAPI.getAll().then((bookShelve) => {
+          this.setState({ bookShelve })
+        })
+    }
+
+    searchBook = (query) => {
+        BooksAPI.search(query, 20).then((books) => {
+          this.setState({ books })
+        })
+    }
+
+    updateBookShelve = (book, shelf) => {
+        BooksAPI.update(book, shelf).then((response)=>{
+          this.getBookShelve()
+        })
+    }
+
+    render() {
+        return (
+          <div className="app">
+            {this.state.showSearchPage ? (
+              <SearchPage 
+                books = { this.state.books }
+                searchBook={
+                  (query) => {
+                    this.searchBook(query)
+                  }
+                } 
+                updateBookShelve = {
+                  (book, shelf) => {
+                    this.updateBookShelve(book, shelf)
+                  }
+                }
+                backToHome = {
+                  (value) => {
+                    this.setState({'showSearchPage': value})
+                  }
+                }
+              />
+            ) : (
+                <MyReadsPage 
+                    bookShelve={ this.state.bookShelve } 
+                    updateBookShelve = {
+                      (book, shelf) => {
+                        this.updateBookShelve(book, shelf)
+                      }
+                    }
+                    openSearch = {
+                      (value) => {
+                        this.setState({'showSearchPage': value})
+                      }
+                    }
+                />
+            )}
+          </div>
+        )
+    }
 }
 
 export default BooksApp
