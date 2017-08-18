@@ -1,9 +1,16 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 
 import BooksGrid from './BooksGrid'
 
 class MyReadsPage extends Component {
-	
+	static propTypes = {
+		bookShelve: PropTypes.array.isRequired,
+		updateBookShelve: PropTypes.func.isRequired,
+		openSearch: PropTypes.func.isRequired
+	}
+
 	render () {
 		const { bookShelve, updateBookShelve, openSearch } = this.props
 		const read = bookShelve.filter((book) => book.shelf === 'read')
@@ -37,7 +44,7 @@ class MyReadsPage extends Component {
 	              </div>
 	            </div>
 	            <div className="open-search">
-	              <a onClick={() => openSearch(true)}>Add a book</a>
+	              <Link to='/search'>Add a book</Link>
 	            </div>
 	        </div>	
 		)

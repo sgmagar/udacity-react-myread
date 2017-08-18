@@ -1,4 +1,6 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
+
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 
@@ -43,42 +45,28 @@ class BooksApp extends React.Component {
 
     render() {
         return (
-          <div className="app">
-            {this.state.showSearchPage ? (
-              <SearchPage 
-                books = { this.state.books }
-                searchBook={
-                  (query) => {
-                    this.searchBook(query)
-                  }
-                } 
-                updateBookShelve = {
-                  (book, shelf) => {
-                    this.updateBookShelve(book, shelf)
-                  }
-                }
-                backToHome = {
-                  (value) => {
-                    this.setState({'showSearchPage': value})
-                  }
-                }
-              />
-            ) : (
-                <MyReadsPage 
-                    bookShelve={ this.state.bookShelve } 
-                    updateBookShelve = {
-                      (book, shelf) => {
-                        this.updateBookShelve(book, shelf)
-                      }
-                    }
-                    openSearch = {
-                      (value) => {
-                        this.setState({'showSearchPage': value})
-                      }
-                    }
-                />
-            )}
-          </div>
+            <div className="app">
+                <Route exact path='/' render={() => (
+                    <MyReadsPage 
+                        bookShelve={ this.state.bookShelve } 
+                        updateBookShelve={(book, shelf) => {
+                            this.updateBookShelve(book, shelf)
+                        }}
+                    />
+                )} />
+
+                <Route path='/search' render={() => (
+                    <SearchPage 
+                        books={ this.state.books }
+                        searchBook={(query) => {
+                            this.searchBook(query)
+                        }} 
+                        updateBookShelve={(book, shelf) => {
+                            this.updateBookShelve(book, shelf)
+                        }}
+                    />        
+                )} />    
+            </div>
         )
     }
 }
