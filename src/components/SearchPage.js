@@ -9,7 +9,6 @@ class SearchPage extends Component {
 		books: PropTypes.array.isRequired,
 		searchBook: PropTypes.func.isRequired,
 		updateBookShelve: PropTypes.func.isRequired,
-		backToHome: PropTypes.func.isRequired
 	}
 
 	state ={
@@ -22,7 +21,7 @@ class SearchPage extends Component {
 	}
 
 	render () {
-		const { books, updateBookShelve, backToHome } = this.props
+		const { books, updateBookShelve } = this.props
 		const { query } = this.state
 		return (
 			<div className="search-books">

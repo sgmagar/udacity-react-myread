@@ -8,11 +8,10 @@ class MyReadsPage extends Component {
 	static propTypes = {
 		bookShelve: PropTypes.array.isRequired,
 		updateBookShelve: PropTypes.func.isRequired,
-		openSearch: PropTypes.func.isRequired
 	}
 
 	render () {
-		const { bookShelve, updateBookShelve, openSearch } = this.props
+		const { bookShelve, updateBookShelve } = this.props
 		const read = bookShelve.filter((book) => book.shelf === 'read')
 		const currentlyReading = bookShelve.filter((book) => book.shelf === 'currentlyReading')
 		const wantToRead = bookShelve.filter((book) => book.shelf === 'wantToRead')

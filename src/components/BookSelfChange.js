@@ -13,10 +13,16 @@ class BookSelfChange extends Component {
 		return (
 			<select onClick={(event) => updateBookShelve(book, event.target.value)}>
 				<option value="none" disabled>Move to...</option>
-				<option value="currentlyReading">Currently Reading</option>
-				<option value="wantToRead">Want to Read</option>
-				<option value="read">Read</option>
-				<option value="none">None</option>
+				<option value="currentlyReading">
+					{book.shelf === 'currentlyReading' ? '✓' : ''} Currently Reading
+				</option>
+				<option value="wantToRead">
+					{book.shelf === 'wantToRead' ? '✓' : ''} Want to Read
+				</option>
+				<option value="read">
+					{book.shelf === 'read' ? '✓' : ''} Read
+				</option>
+				<option value="none">&nbsp;&nbsp;None</option>
 			</select>
 		)
 	}
