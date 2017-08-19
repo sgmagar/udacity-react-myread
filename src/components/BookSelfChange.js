@@ -11,7 +11,7 @@ class BookSelfChange extends Component {
 		const {book, updateBookShelve } = this.props
 
 		return (
-			<select onClick={(event) => updateBookShelve(book, event.target.value)}>
+			<select onChange={(event) => updateBookShelve(book, event.target.value)}>
 				<option value="none" disabled>Move to...</option>
 				<option value="currentlyReading">
 					{book.shelf === 'currentlyReading' ? '✓' : ''} Currently Reading
