@@ -1,8 +1,8 @@
-import React, { Component } from "react"
-import PropTypes from "prop-types"
-import { Link } from "react-router-dom"
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import BooksGrid from "./BooksGrid"
+import BooksGrid from "./BooksGrid";
 
 class SearchPage extends Component {
 	static propTypes = {
@@ -10,43 +10,49 @@ class SearchPage extends Component {
 		searchBook: PropTypes.func.isRequired,
 		updateBookShelve: PropTypes.func.isRequired,
 		clearSearchPage: PropTypes.func.isRequired
-	}
+	};
 
-	state ={
+	state = {
 		query: ""
+	};
+
+	componentWillUnmount() {
+		this.props.clearSearchPage();
 	}
 
-	componentWillUnmount () {
-		this.props.clearSearchPage()
-	}
+	updateQuery = query => {
+		this.setState({ query: query });
+		this.props.searchBook(query);
+	};
 
-	updateQuery = (query) => {
-		this.setState({query: query})
-		this.props.searchBook(query)
-	}
-
-	render () {
-		const { books, updateBookShelve } = this.props
-		const { query } = this.state
+	render() {
+		const { books, updateBookShelve } = this.props;
+		const { query } = this.state;
 		return (
 			<div className="search-books">
-	            <div className="search-books-bar">
-	            	<Link to="/" className="close-search">Close</Link>
+				<div className="search-books-bar">
+					<Link to="/" className="close-search">
+						Close
+					</Link>
 					<div className="search-books-input-wrapper">
-						<input 
-							type="text" 
+						<input
+							type="text"
 							placeholder="Search by title or author"
 							value={query}
-							onChange={(event) => this.updateQuery(event.target.value)}
+							onChange={event =>
+								this.updateQuery(event.target.value)}
 						/>
 					</div>
-	            </div>
-	            <div className="search-books-results">
-	            	<BooksGrid books={ books } updateBookShelve={ updateBookShelve } />
-	            </div>
-          </div>
-		)
+				</div>
+				<div className="search-books-results">
+					<BooksGrid
+						books={books}
+						updateBookShelve={updateBookShelve}
+					/>
+				</div>
+			</div>
+		);
 	}
 }
 
-export default SearchPage
+export default SearchPage;
