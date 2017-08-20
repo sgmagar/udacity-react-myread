@@ -9,10 +9,15 @@ class SearchPage extends Component {
 		books: PropTypes.array.isRequired,
 		searchBook: PropTypes.func.isRequired,
 		updateBookShelve: PropTypes.func.isRequired,
+		clearSearchPage: PropTypes.func.isRequired
 	}
 
 	state ={
 		query: ""
+	}
+
+	componentWillUnmount () {
+		this.props.clearSearchPage()
 	}
 
 	updateQuery = (query) => {
