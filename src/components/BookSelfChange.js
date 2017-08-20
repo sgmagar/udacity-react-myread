@@ -15,7 +15,7 @@ class BookSelfChange extends Component {
 				value={book.shelf || "none"}
 				onChange={event => updateBookShelve(book, event.target.value)}
 			>
-				<option value="none" disabled>
+				<option value="non" disabled>
 					Move to...
 				</option>
 				<option value="currentlyReading">Currently Reading</option>
