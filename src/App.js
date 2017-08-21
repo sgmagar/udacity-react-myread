@@ -42,26 +42,18 @@ class BooksApp extends React.Component {
         });
     };
 
-    updateBooks = bookShelve => {
-        let books = this.state.books;
-        books.map(book => {
-            if (bookShelve.currentlyReading.find(item => item === book.id)) {
-                book.shelf = "currentlyReading";
-            } else if (bookShelve.read.find(item => item === book.id)) {
-                book.shelf = "read";
-            } else if (bookShelve.wantToRead.find(item => item === book.id)) {
-                book.shelf = "wantToRead";
-            }
-            return book;
-        });
-        this.setState({ books });
-    };
-
     updateBookShelve = (book, shelf) => {
-        BooksAPI.update(book, shelf).then(response => {
-            this.getBookShelve();
-            this.updateBooks(response);
-        });
+        if (book.shelf !== shelf) {
+            BooksAPI.update(book, shelf).then(response => {
+                book.shelf = shelf;
+                this.getBookShelve();
+                this.setState(state => ({
+                    books: state.books
+                        .filter(b => b.id !== book.id)
+                        .concat([book])
+                }));
+            });
+        }
     };
 
     clearSearchPage = () => {
