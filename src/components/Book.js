@@ -14,8 +14,6 @@ const Book = ({ book, updateBookShelve }) => {
                     <div
                         className="book-cover"
                         style={{
-                            width: 128,
-                            height: 193,
                             backgroundImage: `url("${(book.imageLinks &&
                                 book.imageLinks.thumbnail) ||
                                 default_img}")`
@@ -32,11 +30,7 @@ const Book = ({ book, updateBookShelve }) => {
                     {book.title}
                 </div>
                 <div className="book-authors">
-                    {book.authors.map((author, index) =>
-                        <span key={index}>
-                            {author}
-                        </span>
-                    )}
+                    {book.authors ? book.authors.join(", ") : ""}
                 </div>
             </div>
         </li>
